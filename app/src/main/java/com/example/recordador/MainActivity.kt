@@ -13,69 +13,51 @@ import android.view.MenuItem
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.EXTRA_NOTIFICATION_ID
 import androidx.core.app.NotificationManagerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshopskotlin.CardsAdapter
+import com.example.coffeeshopskotlin.Tarjeta
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 //TODO : tres actividades: Main Nueva Ajustes
-//TODO : implementar squlite
-//TODO : Crear notificaciones/Alarmas
+//TODO : implementar squlite https://developer.android.com/guide/topics/ui/controls/pickers
+
 //TODO : Crear Tema personalizado
 //TODO : Si da tiempo crear un sistema de cuentas atras recurrentes (he puesto la lavadora)
-val CHANNEL_ID = "CHANNEL_ID"
-val ACTION_SNOOZE= "ACTION_SNOOZE"
+
 class MainActivity : AppCompatActivity() {
+    private var items: ArrayList<Tarjeta>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        createNotificationChannel()
-//        val snoozeIntent = Intent(this, MainActivity::class.java).apply {
-//            action = ACTION_SNOOZE
-//            putExtra(EXTRA_NOTIFICATION_ID, 0)
-//        }
-//        val snoozePendingIntent: PendingIntent =
-//            PendingIntent.getBroadcast(this, 0, snoozeIntent, 0)
-//        val voyIntent = Intent(this, MainActivity::class.java).apply {
-//            action = ACTION_SNOOZE
-//            putExtra(EXTRA_NOTIFICATION_ID, 0)
-//        }
-//        val voyPendingIntent: PendingIntent =
-//            PendingIntent.getBroadcast(this, 0, voyIntent, 0)
-//        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_launcher_foreground)
-//            .setContentTitle("textTitle")
-//            .setContentText("textContent")
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//            .addAction(R.drawable.ic_launcher_foreground, "voy"/*getString(R.string.snooze)*/,
-//                voyPendingIntent)
-//            .addAction(R.drawable.ic_launcher_foreground, "Luego"/*getString(R.string.snooze)*/,
-//                snoozePendingIntent)
-//        val notificationId = 1
-//        buttonTest.setOnClickListener{
-//            with(NotificationManagerCompat.from(this)) {
-//                // notificationId is a unique int for each notification that you must define
-//                notify(notificationId, builder.build())
-//            }
-//        }
+
+        items = ArrayList<Tarjeta>()
+
+        var bdg: SQLiteGestor? = null
+        bdg = SQLiteGestor(this, "recordatorios.sqlite")
+        val bd = bdg.readableDatabase
+
+        val rs = bd.rawQuery("SELECT * FROM ALARMAS", null)
+
+        while (rs.moveToNext())
+            items!!.add(Tarjeta(rs.getBlob(4), rs.getString(1), rs.getString(2)))
+
+        rs.close()
+        bd.close()
+        bdg.close()
+        val recView = findViewById(R.id.recView) as RecyclerView
+        recView.setHasFixedSize(true)
+        val adaptador = CardsAdapter(items!!)
+
+        recView.adapter = adaptador
+        recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
 
         
     }
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Canal1" //getString(R.string.channel_name)
-            val descriptionText = "Canal para tareas"//getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true

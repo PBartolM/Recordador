@@ -15,16 +15,11 @@ import androidx.core.app.NotificationCompat.EXTRA_NOTIFICATION_ID
 import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshopskotlin.CardsAdapter
-import com.example.coffeeshopskotlin.Tarjeta
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-//TODO : tres actividades: Main Nueva Ajustes
-//TODO : implementar squlite https://developer.android.com/guide/topics/ui/controls/pickers
 
-//TODO : Crear Tema personalizado
-//TODO : Si da tiempo crear un sistema de cuentas atras recurrentes (he puesto la lavadora)
 
 class MainActivity : AppCompatActivity() {
     private var items: ArrayList<Tarjeta>? = null
@@ -41,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val rs = bd.rawQuery("SELECT * FROM ALARMAS", null)
 
         while (rs.moveToNext())
-            items!!.add(Tarjeta(rs.getBlob(4), rs.getString(1), rs.getString(2)))
+            items!!.add(Tarjeta(rs.getInt(0), rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10)))
 
         rs.close()
         bd.close()
@@ -54,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
 
-        
+
     }
 
 

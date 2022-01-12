@@ -8,57 +8,90 @@
     android:layout_height="match_parent"
     tools:context=".Nuevo"
     android:orientation="vertical">
+    <ScrollView
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Recordatorio" />
+
+            <EditText
+                android:id="@+id/editTextNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textHora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora a la que sonara la alarma" />
+
+            <TimePicker android:id="@+id/timePicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+
+            <CheckBox
+                android:id="@+id/checkBoxLu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lunes" />
+            <CheckBox
+                android:id="@+id/checkBoxMa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Martes" />
+            <CheckBox
+                android:id="@+id/checkBoxMi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Miercoles" />
+            <CheckBox
+                android:id="@+id/checkBoxJu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jueves" />
+            <CheckBox
+                android:id="@+id/checkBoxVi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Viernes" />
+            <CheckBox
+                android:id="@+id/checkBoxSa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sabado" />
+            <CheckBox
+                android:id="@+id/checkBoxDo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Domingo" />
 
 
-    <TextView
-        android:id="@+id/textNombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nombre del Recordatorio" />
+            <Button
+                android:id="@+id/guardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar" />
 
-    <EditText
-        android:id="@+id/editTextNombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="" />
+            <Button
+                android:id="@+id/cancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancelar" />
+        </LinearLayout>
+    </ScrollView>
 
-    <TextView
-        android:id="@+id/textHora"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hora a la que sonara la alarma" />
 
-    <EditText
-        android:id="@+id/editTextHora"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time" />
-
-    <TextView
-        android:id="@+id/textFrequencia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cada cuantos dias sonara la alarma" />
-
-    <EditText
-        android:id="@+id/editTextFrequencia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
-
-    <Button
-        android:id="@+id/guardar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar" />
-
-    <Button
-        android:id="@+id/cancelar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancelar" />
 </LinearLayout>

@@ -8,6 +8,8 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 
 
 class CardsAdapter(private val items: ArrayList<Tarjeta>) : RecyclerView.Adapter<CardsAdapter.TarjViewHolder>() {
@@ -35,23 +37,32 @@ class CardsAdapter(private val items: ArrayList<Tarjeta>) : RecyclerView.Adapter
             jueves =itemView.findViewById(R.id.jueves)
             viernes =itemView.findViewById(R.id.viernes)
             sabado =itemView.findViewById(R.id.sabado)
-            domingo =itemView.findViewById(R.id.sabado)
+            domingo =itemView.findViewById(R.id.domingo)
 
         }
 
         fun bindCards(t: Tarjeta) {
-            //imagen.setImageResource(t.imag)
-            //TODO aqui
+
+
             text.text = t.titulo
-            var aux = "${ t.hora } : ${ t.minuto }"
+            val aux = "${ t.hora } : ${ t.minuto }"
             tiempo.text=aux
 
-        }
-        fun dias(a:TextView,b:Boolean){
-            if (b){
-                a.colo
-            }else{
+            dias(lunes,t.lunes)
+            dias(martes,t.martes)
+            dias(miercoles,t.miercoles)
+            dias(jueves,t.jueves)
+            dias(viernes,t.viernes)
+            dias(sabado,t.sabado)
+            dias(domingo,t.domingo)
 
+        }
+
+        fun dias(a:TextView,b:Int){
+            if (b==1){
+                a.setTextColor(ContextCompat.getColor(itemView.context,R.color.black))
+            }else{
+                a.setTextColor(ContextCompat.getColor(itemView.context,R.color.white))
             }
         }
     }
